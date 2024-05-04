@@ -16,19 +16,33 @@ import org.json.simple.parser.ParseException;
 public class App {
 	public static String projectPath = "C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\";
 
-	@SuppressWarnings({ "resource" })
-	public static void main(String[] args) throws ParseException, FileNotFoundException, IOException {
-		Scanner myObj = new Scanner(System.in);
-		System.out.println("Enter message");
-		String message = myObj.nextLine();
-		JSONParser parser = new JSONParser();
-		JSONObject json = (JSONObject) parser.parse(
-				new FileReader(projectPath + "src\\main\\resources\\com\\piyush\\MorseCodeGenerator\\morse-code.json"));
-		System.out.printf("Morse code for the message is : ");
+	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException{
+		mainMethod();
+	}
+
+	private static void mainMethod() throws FileNotFoundException, IOException, ParseException{
+		String message = getMessageFromUser();
+		JSONObject json = readMorseJson();
 		processMessage(message, json);
 	}
 
+	private static JSONObject readMorseJson() throws FileNotFoundException, IOException, ParseException{
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(
+				new FileReader(projectPath + "src\\main\\resources\\com\\piyush\\MorseCodeResource\\morse-code.json"));
+		return json;
+	}
+
+	@SuppressWarnings("resource")
+	private static String getMessageFromUser() {
+		Scanner myObj = new Scanner(System.in);
+		System.out.println("Enter message");
+		String message = myObj.nextLine();
+		return message;
+	}
+
 	private static void processMessage(String message, JSONObject json) {
+		System.out.printf("Morse code for the message is : ");
 		message.chars().mapToObj(c -> (char) c).forEach(c -> {
 			convertToMorseAndPrint(json, Character.toLowerCase(c));
 		});

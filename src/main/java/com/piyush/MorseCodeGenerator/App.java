@@ -21,13 +21,10 @@ public class App {
 		Scanner myObj = new Scanner(System.in);
 		System.out.println("Enter message");
 		String message = myObj.nextLine();
-
 		JSONParser parser = new JSONParser();
 		JSONObject json = (JSONObject) parser.parse(
 				new FileReader(projectPath + "src\\main\\resources\\com\\piyush\\MorseCodeGenerator\\morse-code.json"));
-
 		System.out.printf("Morse code for the message is : ");
-
 		processMessage(message, json);
 	}
 

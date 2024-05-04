@@ -14,6 +14,8 @@ import org.json.simple.parser.ParseException;
  *
  */
 public class App {
+	public static String projectPath = "C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\";
+
 	@SuppressWarnings({ "resource" })
 	public static void main(String[] args) throws ParseException, FileNotFoundException, IOException {
 		Scanner myObj = new Scanner(System.in);
@@ -21,24 +23,27 @@ public class App {
 		String message = myObj.nextLine();
 
 		JSONParser parser = new JSONParser();
-		JSONObject json = (JSONObject) parser.parse(new FileReader(
-				"C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\src\\main\\resources\\com\\piyush\\MorseCodeGenerator\\morse-code.json"));
+		JSONObject json = (JSONObject) parser.parse(
+				new FileReader(projectPath + "src\\main\\resources\\com\\piyush\\MorseCodeGenerator\\morse-code.json"));
 
 		System.out.printf("Morse code for the message is : ");
 
-		extracted(message, json);
+		processMessage(message, json);
 	}
 
-	private static void extracted(String message, JSONObject json) {
+	private static void processMessage(String message, JSONObject json) {
 		message.chars().mapToObj(c -> (char) c).forEach(c -> {
-			Object value;
-			if (Character.isSpaceChar(c)) {
-				value = " ";
-			} else {
-				value = json.get(Character.toString(c));
-			}
-			System.out.print(value);
-			System.out.print(" ");
+			convertToMorseAndPrint(json, Character.toLowerCase(c));
 		});
+	}
+
+	private static void convertToMorseAndPrint(JSONObject json, Character c) {
+		Object value;
+		if (Character.isSpaceChar(c)) {
+			value = "  ";
+		} else {
+			value = (json.get(Character.toString(c))) + " ";
+		}
+		System.out.print(value);
 	}
 }

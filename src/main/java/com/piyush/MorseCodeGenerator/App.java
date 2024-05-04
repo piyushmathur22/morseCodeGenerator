@@ -13,26 +13,37 @@ import org.json.simple.parser.ParseException;
  * Hello world!
  *
  */
-public class App 
-{	
-    @SuppressWarnings("resource")
-	public static void main( String[] args ) throws ParseException, FileNotFoundException, IOException
-    {
-        System.out.println( "Hello World!" );
-        Scanner myObj = new Scanner(System.in);
-        System.out.println("Enter username");
-        String userName = myObj.nextLine();
-        
-        JSONParser parser = new JSONParser(); 
-        JSONObject json = (JSONObject) parser.parse(new FileReader("C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\src\\main\\resources\\com\\piyush\\MorseCodeGenerator\\morse-code.json"));
+public class App {
+	public static String projectPath = "C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\";
 
-        System.out.printf("Morse code for the message is : ");
-        
-        userName.chars()
-        .mapToObj(c -> (char) c)
-        .forEach(c -> {
-            Object value = json.get(Character.toString(c));
-            System.out.print(value);
-        });
-    }
+	@SuppressWarnings({ "resource" })
+	public static void main(String[] args) throws ParseException, FileNotFoundException, IOException {
+		Scanner myObj = new Scanner(System.in);
+		System.out.println("Enter message");
+		String message = myObj.nextLine();
+
+		JSONParser parser = new JSONParser();
+		JSONObject json = (JSONObject) parser.parse(
+				new FileReader(projectPath + "src\\main\\resources\\com\\piyush\\MorseCodeGenerator\\morse-code.json"));
+
+		System.out.printf("Morse code for the message is : ");
+
+		processMessage(message, json);
+	}
+
+	private static void processMessage(String message, JSONObject json) {
+		message.chars().mapToObj(c -> (char) c).forEach(c -> {
+			convertToMorseAndPrint(json, Character.toLowerCase(c));
+		});
+	}
+
+	private static void convertToMorseAndPrint(JSONObject json, Character c) {
+		Object value;
+		if (Character.isSpaceChar(c)) {
+			value = "  ";
+		} else {
+			value = (json.get(Character.toString(c))) + " ";
+		}
+		System.out.print(value);
+	}
 }

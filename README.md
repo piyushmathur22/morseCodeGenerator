@@ -1,2 +1,2 @@
 # morseCodeGenerator
-Converts messages to morse code
+Converts messages to morse code.

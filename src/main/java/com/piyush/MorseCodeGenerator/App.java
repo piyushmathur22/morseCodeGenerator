@@ -11,7 +11,6 @@ import org.json.simple.parser.ParseException;
 
 /**
  * Hello world!
- *
  */
 public class App {
 	public static String projectPath = "C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\";

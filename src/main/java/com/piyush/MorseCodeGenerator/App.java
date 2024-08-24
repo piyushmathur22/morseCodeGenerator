@@ -13,13 +13,19 @@ import org.json.simple.parser.ParseException;
  * Hello world!! 
  */
 public class App {
-	public static String projectPath = "C:\\Softwares\\ProjectFolder\\project\\MorseCodeGenerator\\";
+	public static String projectPath = "C:\\Personal\\Project\\morseCodeGenerator\\";
 
-	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException{
-		mainMethod();
+//	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException{
+//		mainMethod();
+//	}
+
+	public static void mainMethod() throws FileNotFoundException, IOException, ParseException{
+		String message = getMessageFromUser();
+		JSONObject json = readMorseJson();
+		processMessage(message, json);
 	}
-
-	private static void mainMethod() throws FileNotFoundException, IOException, ParseException{
+	
+	public static void methodConverter() throws FileNotFoundException, IOException, ParseException{
 		String message = getMessageFromUser();
 		JSONObject json = readMorseJson();
 		processMessage(message, json);

@@ -14,7 +14,7 @@ import org.json.simple.parser.ParseException;
  */
 public class App {
 	public static String projectPath = "C:\\Personal\\Project\\morseCodeGenerator\\";
-
+	
 //	public static void main(String[] args) throws FileNotFoundException, IOException, ParseException{
 //		mainMethod();
 //	}
